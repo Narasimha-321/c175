@@ -18,6 +18,21 @@ AFRAME.registerComponent("createmodels", {
     var modelName = model.model_name;
 
     var scene = document.querySelector("a-scene");
+    if (barcodeValue === 0) {
+      var baseModelEl = document.createElement("a-entity");
+      baseModelEl.setAttribute("id", `base-model`);
+      baseModelEl.setAttribute("geometry", {
+        primitive: "box",
+        width: model.width,
+        height: model.height
+      });
+      baseModelEl.setAttribute("position", model.position);
+      baseModelEl.setAttribute("rotation", model.rotation);
+      baseModelEl.setAttribute("material", {
+        color: model.color
+      });
+      scene.appendChild(baseModelEl);
+    } ,
 
     var marker = document.createElement("a-marker");
 
@@ -43,6 +58,7 @@ AFRAME.registerComponent("createmodels", {
       });
       marker.appendChild(modelEl);
     } else {
+      
       var modelEl = document.createElement("a-entity");
       modelEl.setAttribute("id", `${modelName}`);
       modelEl.setAttribute("gltf-model", `url(${modelUrl})`);
@@ -52,4 +68,7 @@ AFRAME.registerComponent("createmodels", {
       marker.appendChild(modelEl);
     }
   }
+
+
+
 });
